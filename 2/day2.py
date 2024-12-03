@@ -1,4 +1,8 @@
-def readfile(filename):
+def readfile(filename, part1=True):
+    if part1:
+        maxfail=0
+    else:
+        maxfail=1
     with open(filename) as f:
         safelines=0
         for line in f:
@@ -7,7 +11,7 @@ def readfile(filename):
             fail=0
             delta=''
             for char in line:
-                if fail>1:
+                if fail>maxfail:
                     break
                 if char == ' ' or char =='\n':
                     if numlst:
@@ -23,7 +27,7 @@ def readfile(filename):
                     num=''
                 else:
                     num+=char
-            if fail<=1:
+            if fail<=maxfail:
                 safelines+=1
 
     return safelines
@@ -32,3 +36,4 @@ def readfile(filename):
 
 
 print(readfile('input2.txt'))
+print(readfile('input2.txt',False))
